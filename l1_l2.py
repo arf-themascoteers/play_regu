@@ -28,7 +28,7 @@ model = LinearModel()
 criterion = nn.MSELoss()
 optimizer = torch.optim.SGD(model.parameters(), lr=0.01)
 
-lambda_reg = 0.01
+lambda_reg = 1
 
 epochs_data = []
 mse_losses = []
@@ -65,20 +65,21 @@ epochs_df.to_csv(epochs_file, index=False)
 
 fig, ax1 = plt.subplots()
 
-ax1.plot(epochs_df['w1'], label="w1")
-ax1.plot(epochs_df['w2'], label="w2")
+ax1.plot(epochs_df['w1'], label="w1", linewidth=4, linestyle="-", color='black')
+ax1.plot(epochs_df['w2'], label="w2", linewidth=4, linestyle="-", color='grey')
 ax1.set_xlabel("Epoch")
 ax1.set_ylabel("Weights")
 ax1.legend(loc="upper left")
 
 ax2 = ax1.twinx()
-ax2.plot(epochs_df['mse_loss'], label="MSE Loss", color='blue')
-ax2.plot(epochs_df['l1_norm'], label="L1 norm", color='green')
-ax2.plot(epochs_df['l2_norm'], label="L2 norm", color='yellow')
-ax2.plot(epochs_df['reg'], label="L1/L2", color='magenta')
-ax2.plot(epochs_df['total_loss'], label="Total Loss: MSE Loss + 0.01 * (L1/L2)", color='red')
+ax2.plot(epochs_df['mse_loss'], label="MSE Loss", color='blue', linestyle="--")
+ax2.plot(epochs_df['l1_norm'], label="L1 norm", color='green', linestyle="--")
+ax2.plot(epochs_df['l2_norm'], label="L2 norm", color='yellow', linestyle="--")
+ax2.plot(epochs_df['reg'], label="L1/L2", color='magenta', linestyle="--")
+ax2.plot(epochs_df['total_loss'], label="Total Loss = MSE Loss + 1* (L1/L2)", color='red', linestyle="--")
 ax2.set_ylabel("Loss")
 ax2.legend(loc="upper right")
+
 fig.suptitle("y = w1*x1 + w2*x2 [Data: y = 3*x1 = 3*x2 ]")
 
 plt.savefig("l1_l2.png")
