@@ -48,14 +48,14 @@ epochs_df.to_csv(epochs_file, index=False)
 
 fig, ax1 = plt.subplots()
 
-ax1.plot(epochs_df['w1'], label="w1")
-ax1.plot(epochs_df['w2'], label="w2")
+ax1.plot(epochs_df['w1'], label="w1", linewidth=4, linestyle="-", color='black')
+ax1.plot(epochs_df['w2'], label="w2", linewidth=4, linestyle="-", color='grey')
 ax1.set_xlabel("Epoch")
 ax1.set_ylabel("Weights")
 ax1.legend(loc="upper left")
 
 ax2 = ax1.twinx()
-ax2.plot(epochs_df['loss'], color='red', label="Loss")
+ax2.plot(epochs_df['loss'], color='red', label="Loss", linestyle="--")
 ax2.set_ylabel("Loss")
 ax2.legend(loc="upper right")
 fig.suptitle("y = w1*x1 + w2*x2 [Data: y = 3*x1 = 3*x2 ]")
